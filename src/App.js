@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { get, categories } from './api/client'
+import { getCategories } from './api/client'
+import { Route } from 'react-router-dom';
+import Category from './Category'
+import Cart from './Cart'
+import Links from './Links'
 
 class App extends Component {
   state = {
@@ -9,28 +12,37 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const _categories = await categories()
+    const _categories = await getCategories()
     this.setState({
       categories: _categories,
       cart: emptyCart(_categories)
     })
   }
 
-  test = (async function() {
-    const c = await get('electronics') 
-    return  c
-  })
+  updateCart = (category, item, q) => {
+    // TODO: LocalStorage or some way of persisting this
+    this.setState((prevState) => ({
+      ...prevState,
+      cart: {
+        ...prevState.cart,
+        [category]: { item, q }
+      }
+    }))
+  }
 
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" onClick={this.test}/>
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1 onClick={this.test}>Shopping Cart</h1>
+        <Links categories={this.state.categories}/>
+        {this.state.categories.map(category => (
+          <Route key={category} path={`/${category}`} render={() => (
+            <Category updateCart={this.updateCart} category={category} cart={this.state.cart[category]}/>
+          )}/>
+        ))}
+        <Route exact path="/" render={() => (
+          <Cart cart={this.state.cart}/>
+        )}/>
       </div>
     );
   }

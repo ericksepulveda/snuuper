@@ -1,28 +1,63 @@
+html, body, #root, .App {
+  height: 100vh;
+}
 .App {
+  margin: 5vh 10vw;
+  padding: 2vh 5vw;
+  border: 1px solid lightblue;
+  border-radius: 5px;
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.item {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 1vw;
+  padding: .5vw;
+  height: 230px;
+  width: 230px;
+  display: inline-block;
+  box-shadow: 1px 1px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
+.price {
+  font-weight: bold;
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.item-selected {
+  background-color: #00ff4d3d;
+}
+
+.top-link, .top-link:active {
+  background-color: greenyellow;
+  text-decoration: none;
+  border: 1px solid greenyellow;
+  margin: 2px;
+  padding: 5px;
+}
+
+.total {
+  background-color: #e91e63;
+}
+
+.table-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5vh;
+}
+
+.grand-total {
+  font-weight: bold;
+  font-size: larger;
+}
+
+.buy-button {
+  width: 20vw;
+  height: 10vh;
+  background-color: green;
+  font-size: 30px;
+  font-weight: bold;
+  margin: 5vh;
+  border-radius: 5px;
 }
